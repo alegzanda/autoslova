@@ -2666,6 +2666,8 @@ window.applyTypoSuggestion = function(word) {
                 try {
                     await window.vkBridge.send('VKWebAppInit');
                     vkBridgeReady = true;
+                    // Просим ВКонтакте выделить комфортную высоту окна для игры
+                    window.vkBridge.send('VKWebAppResizeWindow', { width: 800, height: 760 }).catch(() => {});
                     // Предзагружаем рекламный ролик заранее, чтобы он открывался мгновенно
                     window.vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' }).catch(() => {});
                 } catch (e) {
