@@ -2231,9 +2231,9 @@ window.applyTypoSuggestion = function(word) {
                 <div class="shop-reward-banner">
                     <div class="shop-reward-info">
                         <span class="shop-reward-title">&#9981; Бесплатная заправка</span>
-                        <span class="shop-reward-desc">Посмотрите короткий ролик и получите +200 л</span>
+                        <span class="shop-reward-desc">Посмотрите короткий ролик и получите +450 л</span>
                     </div>
-                    <button type="button" class="btn-reward-ad" onclick="watchAdForFuel()">&#9654; +200 л</button>
+                    <button type="button" class="btn-reward-ad" onclick="watchAdForFuel()">&#9654; +450 л</button>
                 </div>
             ` : '';
 
@@ -2250,14 +2250,14 @@ window.applyTypoSuggestion = function(word) {
 
         window.watchAdForFuel = async function() {
             const grantFuelReward = () => {
-                score += 200;
+                score += 450;
                 saveProgress();
                 updateStatsUI();
                 if (elShopModal.classList.contains('open')) {
                     renderShopContent();
                 }
                 SoundFX.golden();
-                showStatus('Заправка завершена! Начислено +200 л бензина.', 'success');
+                showStatus('Заправка завершена! Начислено +450 л бензина.', 'success');
             };
 
             if (vkBridgeReady && window.vkBridge) {
