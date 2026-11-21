@@ -35,7 +35,7 @@
             enableDevTools: false,       // Тестовые кнопки разработчика снизу
             enableConsumables: false,    // Вкладка «Расходники» в Автомагазине
             enableAtlas: false,          // Вкладка «Атлас регионов» в Коллекции (прогресс всё равно копится)
-            enableRewardAd: false,       // Кнопка бесплатной заправки за просмотр рекламы
+            enableRewardAd: true,       // Кнопка бесплатной заправки за просмотр рекламы
             hiddenSkinIds: ['emerald', 'diplomat', 'neon', 'platinum'] // Скрытые на релизе скины знака
         };
 
