@@ -28,7 +28,7 @@
         }
 
         [data-theme="light"] {
-            --bg-body: #f3f4f6;
+            --bg-body: #111317;
             --bg-surface: #ffffff;
             --bg-surface-hover: #f9fafb;
             --bg-input: #f9fafb;
@@ -102,11 +102,6 @@
 
         .ambient-bg.active {
             opacity: 0.34;
-        }
-
-        [data-theme="light"] .ambient-bg.active {
-            opacity: 0.24;
-            filter: blur(52px) saturate(1.35) brightness(1.08);
         }
 
         /* Верхняя шапка */
