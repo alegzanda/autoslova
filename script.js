@@ -35,6 +35,7 @@
             enableDevTools: false,       // Тестовые кнопки разработчика снизу
             enableConsumables: false,    // Вкладка «Расходники» в Автомагазине
             enableAtlas: false,          // Вкладка «Атлас регионов» в Коллекции (прогресс всё равно копится)
+            enableRewardAd: false,       // Кнопка бесплатной заправки за просмотр рекламы
             hiddenSkinIds: ['emerald', 'diplomat', 'neon', 'platinum'] // Скрытые на релизе скины знака
         };
 
@@ -2229,11 +2230,7 @@ window.applyTypoSuggestion = function(word) {
                 </div>
             ` : '';
 
-            elShopModalBody.innerHTML = `
-                <div class="shop-balance-bar">
-                    <span>Ваш запас бензина:</span>
-                    <span class="shop-balance-val ${negClass}">${formatNumber(score)} л</span>
-                </div>
+            const rewardBannerHTML = GAME_FEATURES.enableRewardAd ? `
                 <div class="shop-reward-banner">
                     <div class="shop-reward-info">
                         <span class="shop-reward-title">&#9981; Бесплатная заправка</span>
@@ -2241,6 +2238,14 @@ window.applyTypoSuggestion = function(word) {
                     </div>
                     <button type="button" class="btn-reward-ad" onclick="watchAdForFuel()">&#9654; +200 л</button>
                 </div>
+            ` : '';
+
+            elShopModalBody.innerHTML = `
+                <div class="shop-balance-bar">
+                    <span>Ваш запас бензина:</span>
+                    <span class="shop-balance-val ${negClass}">${formatNumber(score)} л</span>
+                </div>
+                ${rewardBannerHTML}
                 ${shopTabsHTML}
                 ${bodySectionHTML}
             `;
