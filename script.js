@@ -2452,22 +2452,65 @@ window.applyTypoSuggestion = function(word) {
             if (gameMode === 'ru') {
                 localStorage.removeItem(STORAGE_KEY_RULES_SEEN);
             }
-            location.reload();
+
+            // Мгновенно обнуляем состояние в памяти без перезагрузки iframe
+            stopHintTimer();
+            currentHintWord = null;
+            isFreeHintActive = false;
+            hintRevealedIndices.clear();
+            hintSecondsLeft = 60;
+            score = 0;
+            streak = 0;
+            historyList = [];
+            collectionList = [];
+            ownedSkins = ['default'];
+            equippedSkin = 'default';
+            streakShields = 0;
+            goldenMagnetCharges = 0;
+            orderedRegionCode = null;
+            usedWordsSet = new Set();
+            collectionSearchQuery = '';
+            lastLoadedModelKey = '';
+
+            generateNewPlateData();
+            saveProgress();
+            resetHintUI();
+            renderPlate(false);
+            updateStatsUI(false);
+            elWordInput.value = '';
+            updateLiveLetterIndicators(false);
+            closeRulesModal();
+            SoundFX.flip();
+            showStatus('Игровой прогресс полностью сброшен. Удачи в новом заезде!', 'warning');
         }
 
-        // Пользовательский сброс прогресса из окна «Правила игры»
+        // Пользовательский сброс прогресса из окна «Правила игры» (двухшаговое подтверждение без системного confirm)
         if (elResetProgressRulesBtn) {
+            let resetConfirmTimer = null;
             elResetProgressRulesBtn.addEventListener('click', () => {
-                if (confirm('Вы уверены, что хотите сбросить весь игровой прогресс, запас бензина и коллекцию номеров? Это действие нельзя отменить.')) {
+                if (!elResetProgressRulesBtn.classList.contains('is-confirming')) {
+                    elResetProgressRulesBtn.classList.add('is-confirming');
+                    elResetProgressRulesBtn.innerHTML = '&#9888; Точно сбросить? Нажмите ещё раз';
+                    SoundFX.error();
+
+                    clearTimeout(resetConfirmTimer);
+                    resetConfirmTimer = setTimeout(() => {
+                        elResetProgressRulesBtn.classList.remove('is-confirming');
+                        elResetProgressRulesBtn.innerHTML = '&#8634; Сбросить игровой прогресс';
+                    }, 4000);
+                } else {
+                    clearTimeout(resetConfirmTimer);
+                    elResetProgressRulesBtn.classList.remove('is-confirming');
+                    elResetProgressRulesBtn.innerHTML = '&#8634; Сбросить игровой прогресс';
                     resetCurrentModeProgress();
                 }
             });
         }
 
         // Тестовый сброс игрового прогресса текущего режима
-        elResetTestBtn.addEventListener('click', resetCurrentModeProgress);
-
-
+        if (elResetTestBtn) {
+            elResetTestBtn.addEventListener('click', resetCurrentModeProgress);
+        }
 
 
         // Работа с IndexedDB для кэширования словаря

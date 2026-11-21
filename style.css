@@ -1576,6 +1576,12 @@
             transform: translateY(-1px);
         }
 
+        .btn-danger-outline.is-confirming {
+            background-color: var(--error-text);
+            color: #ffffff;
+            border-color: var(--error-text);
+        }
+
         .dict-footer-note {
             margin-top: 6px;
             padding-top: 12px;
