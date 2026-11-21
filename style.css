@@ -1234,30 +1234,72 @@
             cursor: default;
         }
 
-        .hint-box {
+        .hint-box-inline {
             display: none;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
-            background-color: var(--bg-surface);
+            gap: 12px;
+            background: rgba(25, 28, 34, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border: 1px dashed var(--accent-primary);
             color: var(--text-primary);
-            padding: 12px 16px;
+            padding: 8px 14px;
             border-radius: 12px;
-            font-size: 14px;
             animation: fadeIn 0.2s ease;
+            flex: 1;
+            min-width: 0;
         }
 
-        .hint-box.visible {
+        [data-theme="light"] .hint-box-inline {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .hint-box-inline.visible {
             display: flex;
+        }
+
+        .hint-inline-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .hint-inline-top {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .hint-inline-label {
+            font-size: 13px;
+            color: var(--text-primary);
+            white-space: nowrap;
         }
 
         .hint-mask {
             font-family: monospace;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 3px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
             color: var(--accent-primary);
+            white-space: nowrap;
+        }
+
+        .hint-inline-sub {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+            line-height: 1.25;
+        }
+
+        .hint-inline-meta {
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-align: right;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* Плашка ручного доступа к папке */
@@ -2327,32 +2369,37 @@
             .bottom-actions {
                 flex-direction: column;
             }
-            .btn-hint, .btn-skip {
+            .btn-hint, .btn-skip, .hint-box-inline {
                 width: 100%;
                 justify-content: center;
             }
         }
 
-        /* Увеличенная высота блоков для гармоничного заполнения окна */
+        /* Сбалансированная высота блоков для окна ВКонтакте */
         @media (min-width: 521px) {
             .plate-stage {
-                min-height: 215px;
+                min-height: 188px;
+                padding: 40px 20px 20px;
             }
             .live-letters-track {
-                margin-top: 20px;
+                margin-top: 16px;
             }
             .stat-card {
-                padding: 16px 12px;
+                padding: 13px 12px;
             }
             .rank-progress-card {
-                padding: 14px 16px;
-                gap: 10px;
+                padding: 11px 16px;
+                gap: 7px;
             }
             .word-input {
-                padding: 17px 96px 17px 18px;
+                padding: 15px 96px 15px 18px;
+            }
+            .status-box, .golden-bonus-banner {
+                padding: 10px 14px;
+                font-size: 13.5px;
             }
             .btn-hint, .btn-skip {
-                padding: 13px 18px;
+                padding: 12px 18px;
             }
         }
 

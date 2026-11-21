@@ -6,7 +6,7 @@
     <title>Автослова: Слово по номеру</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
     <script src="./vk-bridge.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
     <div id="ambientBg" class="ambient-bg"></div>
@@ -150,18 +150,20 @@
             <button id="grantFolderBtn" class="btn-folder">Указать папку</button>
         </div>
 
-        <div id="hintBox" class="hint-box">
-            <div style="display: flex; flex-direction: column; gap: 3px;">
-                <span>Один из вариантов: <strong class="hint-mask" id="hintMaskText"></strong></span>
-                <span style="font-size: 12px; color: var(--text-secondary);">Можно ввести это слово или любое другое подходящее</span>
-            </div>
-            <span id="hintLengthText" style="color: var(--text-secondary); font-size: 13px; text-align: right;"></span>
-        </div>
-
         <div class="bottom-actions">
             <button id="hintBtn" class="btn-hint">
                 <span>&#128161;</span> Подсказка (-40 л)
             </button>
+            <div id="hintBox" class="hint-box-inline">
+                <div class="hint-inline-main">
+                    <div class="hint-inline-top">
+                        <span class="hint-inline-label">&#128161; Один из вариантов:</span>
+                        <strong class="hint-mask" id="hintMaskText"></strong>
+                    </div>
+                    <span class="hint-inline-sub">Можно ввести это слово или любое другое подходящее</span>
+                </div>
+                <span id="hintLengthText" class="hint-inline-meta"></span>
+            </div>
             <button id="nextPlateBtn" class="btn-skip">
                 <span>&#8635;</span> Другой номер (-50 л)
             </button>

@@ -747,9 +747,8 @@
             updateStatsUI(false);
 
             if (currentHintWord) {
-
+                elHintBtn.style.display = 'none';
                 elHintBox.classList.add('visible');
-                elHintBtn.disabled = true;
                 startHintTimer(hintSecondsLeft);
             } else {
                 resetHintUI();
@@ -1443,6 +1442,7 @@ window.applyTypoSuggestion = function(word) {
             hintRevealedIndices.clear();
             hintSecondsLeft = 60;
             elHintBox.classList.remove('visible');
+            elHintBtn.style.display = '';
             elHintBtn.disabled = false;
         }
 
@@ -1569,15 +1569,12 @@ window.applyTypoSuggestion = function(word) {
 
             elHintBox.classList.add('visible');
             elHintBtn.disabled = true;
+            elHintBtn.style.display = 'none';
+            elHintBox.classList.add('visible');
             startHintTimer(60);
             SoundFX.hint();
             updateLiveLetterIndicators(false);
-
-            const isBeautyNow = analyzeBeautifulPlate(currentPlate).isBeautiful;
-            const hintCostLabel = isFreeHint
-                ? `бесплатно + бонус ${isBeautyNow ? 'x4' : 'x2'} за слово`
-                : '-40 л';
-            showStatus(`Подсказка (${hintCostLabel}): показан один из возможных вариантов. Вы можете отгадать его или ввести любое другое подходящее слово.`, 'warning');
+            hideStatus();
             elWordInput.focus();
         });
 
