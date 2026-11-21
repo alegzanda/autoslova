@@ -2676,11 +2676,13 @@ window.applyTypoSuggestion = function(word) {
             }
         });
 
+        // Запускаем инициализацию VK Bridge сразу при загрузке скрипта
+        initVKBridge();
+
         // Инициализация при старте
         window.addEventListener('DOMContentLoaded', async () => {
             applyReleaseFeatureVisibility();
             loadProgress();
-            await initVKBridge();
             await initDictionary(gameMode);
 
             if (!currentHintWord && getActiveDictionary().size > 0 && !hasEnoughSolutions(currentPlate.letters, 5)) {
