@@ -122,6 +122,7 @@
             font-weight: 700;
             font-size: 18px;
             letter-spacing: -0.3px;
+            color: #f3f4f6;
         }
 
         .brand-badge {
@@ -161,8 +162,8 @@
         }
 
         [data-theme="light"] .icon-btn {
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .icon-btn:hover {
@@ -648,8 +649,8 @@
         }
 
         [data-theme="light"] .stats-grid {
-            background: rgba(255, 255, 255, 0.68);
-            border: 1px solid rgba(0, 0, 0, 0.07);
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .stat-card {
@@ -729,8 +730,8 @@
 
 
         [data-theme="light"] .rank-progress-card {
-            background: rgba(255, 255, 255, 0.68);
-            border: 1px solid rgba(0, 0, 0, 0.07);
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .rank-header-row {
@@ -895,8 +896,8 @@
         }
 
         [data-theme="light"] .word-input {
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .word-input:focus {
@@ -1160,8 +1161,8 @@
         }
 
         [data-theme="light"] .btn-skip {
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .btn-skip:hover:not(:disabled) {
@@ -1247,7 +1248,7 @@
         }
 
         [data-theme="light"] .hint-box-inline {
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.97);
         }
 
         .hint-box-inline.visible {
