@@ -29,6 +29,13 @@
         let vkBridgeReady = false;
         let isAdPlaying = false;
 
+        function isOdnoklassnikiEnv() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('vk_client') === 'ok' ||
+                   params.has('api_server') ||
+                   document.referrer.includes('ok.ru');
+        }
+
         // Конфигурация доступных на релизе функций (Feature Flags)
         const GAME_FEATURES = {
             enableUKMode: false,         // Кнопка смены режима RUS / UK
@@ -1981,12 +1988,18 @@ window.applyTypoSuggestion = function(word) {
 
             if (vkBridgeReady && window.vkBridge) {
                 try {
-                    await window.vkBridge.send('VKWebAppShowWallPostBox', {
-                        message: shareText
-                    });
+                    if (isOdnoklassnikiEnv()) {
+                        await window.vkBridge.send('VKWebAppShare', {
+                            text: shareText
+                        });
+                    } else {
+                        await window.vkBridge.send('VKWebAppShowWallPostBox', {
+                            message: shareText
+                        });
+                    }
                     return;
                 } catch (e) {
-                    // Если пользователь закрыл окно поста, пробуем скопировать в буфер
+                    // Если пользователь закрыл окно или метод не поддерживается, копируем текст в буфер
                 }
             }
 
@@ -2700,14 +2713,16 @@ window.applyTypoSuggestion = function(word) {
             }
         }
 
-        // Инициализация VK Bridge SDK
+        // Инициализация VK Bridge SDK (для ВКонтакте и Одноклассников)
         async function initVKBridge() {
             if (window.vkBridge && typeof window.vkBridge.send === 'function') {
                 try {
                     await window.vkBridge.send('VKWebAppInit');
                     vkBridgeReady = true;
-                    // Просим ВКонтакте выделить комфортную высоту окна для игры
-                    window.vkBridge.send('VKWebAppResizeWindow', { width: 800, height: 760 }).catch(() => {});
+                    // Изменение размера окна поддерживается только во ВКонтакте
+                    if (!isOdnoklassnikiEnv()) {
+                        window.vkBridge.send('VKWebAppResizeWindow', { width: 800, height: 760 }).catch(() => {});
+                    }
                     // Предзагружаем рекламный ролик заранее, чтобы он открывался мгновенно
                     window.vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' }).catch(() => {});
                 } catch (e) {
