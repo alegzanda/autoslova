@@ -78,9 +78,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
+            padding: 8px 16px 16px;
             position: relative;
             overflow-x: hidden;
-            transition: background-color 0.25s ease, color 0.25s ease;
+            overflow-y: auto;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Живой размытый фон региона (Ambient Blur) */
@@ -110,7 +113,7 @@
         .header {
             width: 100%;
             max-width: 720px;
-            padding: 18px 20px;
+            padding: 8px 20px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -190,10 +193,10 @@
         .main-container {
             width: 100%;
             max-width: 720px;
-            padding: 8px 20px 30px;
+            padding: 4px 20px 16px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 11px;
             flex: 1;
         }
 
@@ -206,7 +209,7 @@
             background-position: center;
             border: 1px solid var(--border-color);
             border-radius: 18px;
-            padding: 40px 20px 26px;
+            padding: 36px 20px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -602,7 +605,7 @@
 
         /* Живые индикаторы букв под номером */
         .live-letters-track {
-            margin-top: 22px;
+            margin-top: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -1139,8 +1142,8 @@
             justify-content: space-between;
             align-items: center;
             gap: 10px;
-            margin-top: auto;
-            padding-top: 18px;
+            margin-top: 4px;
+            padding-top: 4px;
         }
 
         .btn-skip {
