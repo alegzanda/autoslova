@@ -113,7 +113,7 @@
         .header {
             width: 100%;
             max-width: 720px;
-            padding: 8px 20px 10px;
+            padding: 14px 20px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -193,10 +193,10 @@
         .main-container {
             width: 100%;
             max-width: 720px;
-            padding: 4px 20px 16px;
+            padding: 8px 20px 22px;
             display: flex;
             flex-direction: column;
-            gap: 11px;
+            gap: 16px;
             flex: 1;
         }
 
@@ -209,10 +209,11 @@
             background-position: center;
             border: 1px solid var(--border-color);
             border-radius: 18px;
-            padding: 36px 20px 16px;
+            padding: 48px 20px 28px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             box-shadow: var(--shadow-card);
             transition: background-color 0.25s ease, border-color 0.25s ease, background-image 0.4s ease;
         }
@@ -2332,98 +2333,27 @@
             }
         }
 
-        /* Компактная адаптация для невысоких окон iframe (ВКонтакте) */
-        @media (max-height: 760px) {
-            body {
-                padding: 4px 12px 10px;
-            }
-            .header {
-                padding: 4px 14px 6px;
-            }
-            .icon-btn {
-                min-width: 34px;
-                height: 34px;
-                font-size: 14px;
-            }
-            .main-container {
-                gap: 8px;
-                padding: 2px 14px 10px;
-            }
+        /* Увеличенная высота блоков для гармоничного заполнения окна */
+        @media (min-width: 521px) {
             .plate-stage {
-                padding: 32px 14px 10px;
-                border-radius: 14px;
-            }
-            .region-location-badge {
-                top: 8px;
-                left: 10px;
-                font-size: 11px;
-                padding: 3px 8px;
-            }
-            .license-plate {
-                padding: 5px 12px;
-            }
-            .plate-letter {
-                font-size: 32px;
-            }
-            .plate-digits {
-                font-size: 44px;
-            }
-            .plate-divider {
-                height: 48px;
-            }
-            .region-code {
-                font-size: 24px;
+                min-height: 215px;
             }
             .live-letters-track {
-                margin-top: 8px;
-                gap: 8px;
-            }
-            .letter-pill {
-                width: 30px;
-                height: 30px;
-                font-size: 14px;
-                border-radius: 8px;
+                margin-top: 20px;
             }
             .stat-card {
-                padding: 8px 8px;
-            }
-            .stat-label {
-                font-size: 11px;
-                margin-bottom: 2px;
-            }
-            .stat-value {
-                font-size: 18px;
+                padding: 16px 12px;
             }
             .rank-progress-card {
-                padding: 7px 12px;
-                gap: 4px;
-            }
-            .rank-road-wrapper {
-                padding-top: 22px;
-            }
-            .vehicle-img {
-                height: 20px;
+                padding: 14px 16px;
+                gap: 10px;
             }
             .word-input {
-                padding: 11px 90px 11px 14px;
-                font-size: 15px;
-            }
-            .golden-bonus-banner,
-            .status-box,
-            .hint-box {
-                padding: 8px 12px;
-                font-size: 12.5px;
-            }
-            .hint-mask {
-                font-size: 15px;
-            }
-            .bottom-actions {
-                padding-top: 2px;
-                margin-top: 0;
+                padding: 17px 96px 17px 18px;
             }
             .btn-hint, .btn-skip {
-                padding: 9px 14px;
-                font-size: 13px;
+                padding: 13px 18px;
             }
         }
+
 
