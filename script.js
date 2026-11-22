@@ -43,7 +43,7 @@
             enableConsumables: false,    // Вкладка «Расходники» в Автомагазине
             enableAtlas: false,          // Вкладка «Атлас регионов» в Коллекции (прогресс всё равно копится)
             enableRewardAd: true,       // Кнопка бесплатной заправки за просмотр рекламы
-            hiddenSkinIds: ['emerald', 'diplomat', 'neon', 'platinum'] // Скрытые на релизе скины знака
+            hiddenSkinIds: ['emerald', 'diplomat', 'neon', 'platinum'] // Скрытые на релизе скины знака - очистить массив
         };
 
         let gameMode = GAME_FEATURES.enableUKMode
@@ -1852,9 +1852,10 @@ window.applyTypoSuggestion = function(word) {
                         `;
 
                         const formattedWord = item.word.toUpperCase();
+                        const [l1, l2, l3] = item.letters;
                         const plateText = isUKItem
-                            ? `UK ${item.letters} ${item.digits} ${item.letters}${item.letters}`
-                            : `${item.letters} ${item.digits} ${item.letters}${item.letters} ${item.region} RUS`;
+                            ? `UK ${l1} ${item.digits} ${l2}${l3}`
+                            : `${l1} ${item.digits} ${l2}${l3} ${item.region} RUS`;
 
                         card.innerHTML = `
                             <div class="garage-card-top">
