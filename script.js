@@ -36,13 +36,17 @@
                    document.referrer.includes('ok.ru');
         }
 
+        // Версия словаря: увеличивайте на +1 после правки russian.txt, чтобы кэш обновился у всех игроков автоматически
+        const DICT_VERSION = 1; //править версию после обновления словаря
+        const STORAGE_KEY_DICT_VER_PREFIX = 'autonumber_dict_ver_';
+
         // Конфигурация доступных на релизе функций (Feature Flags)
         const GAME_FEATURES = {
             enableUKMode: false,         // Кнопка смены режима RUS / UK
             enableDevTools: false,       // Тестовые кнопки разработчика снизу
             enableConsumables: false,    // Вкладка «Расходники» в Автомагазине
             enableAtlas: false,          // Вкладка «Атлас регионов» в Коллекции (прогресс всё равно копится)
-            enableRewardAd: true,       // Кнопка бесплатной заправки за просмотр рекламы
+            enableRewardAd: false,       // Кнопка бесплатной заправки за просмотр рекламы
             hiddenSkinIds: ['emerald', 'diplomat', 'neon', 'platinum'] // Скрытые на релизе скины знака - очистить массив
         };
 
@@ -528,9 +532,7 @@
         const elCloseRulesX = document.getElementById('closeRulesX');
         const elStartPlayBtn = document.getElementById('startPlayBtn');
         const elDictStatsInRules = document.getElementById('dictStatsInRules');
-        const elReloadDictBtn = document.getElementById('reloadDictBtn');
         const elResetProgressRulesBtn = document.getElementById('resetProgressRulesBtn');
-
 
         const elHistoryModal = document.getElementById('historyModal');
         const elHistoryBtn = document.getElementById('historyBtn');
@@ -2597,12 +2599,15 @@ window.applyTypoSuggestion = function(word) {
             return Array.from(targetSet);
 }
 
-// Автоматическая загрузка russian.txt или english.txt из папки с игрой
         // Автоматическая загрузка russian.txt или english.txt из папки с игрой
         async function initDictionary(mode = gameMode, forceReload = false) {
             elFolderPermissionBar.classList.remove('visible');
 
-            if (!forceReload) {
+            const verKey = `${STORAGE_KEY_DICT_VER_PREFIX}${mode}`;
+            const savedDictVer = Number(localStorage.getItem(verKey) || 0);
+            const isVersionOutdated = savedDictVer !== DICT_VERSION;
+
+            if (!forceReload && !isVersionOutdated) {
                 if (dictionaries[mode].size > 0) {
                     updateDictStatsLabel(mode);
                     return true;
@@ -2617,7 +2622,7 @@ window.applyTypoSuggestion = function(word) {
             }
 
             const fileName = mode === 'uk' ? 'english.txt' : 'russian.txt';
-            const cacheBuster = forceReload ? `?t=${Date.now()}` : '';
+            const cacheBuster = `?v=${DICT_VERSION}${forceReload ? `&t=${Date.now()}` : ''}`;
 
             try {
                 const response = await fetch(`./${fileName}${cacheBuster}`, { cache: 'no-store' });
@@ -2625,6 +2630,7 @@ window.applyTypoSuggestion = function(word) {
                 const text = await response.text();
                 const arr = parseAndPopulateDictionary(text, mode);
                 await saveDictionaryToCache(arr, mode);
+                localStorage.setItem(verKey, String(DICT_VERSION));
                 return true;
             } catch (e) {
                 try {
@@ -2645,8 +2651,16 @@ window.applyTypoSuggestion = function(word) {
                     });
                     const arr = parseAndPopulateDictionary(text, mode);
                     await saveDictionaryToCache(arr, mode);
+                    localStorage.setItem(verKey, String(DICT_VERSION));
                     return true;
                 } catch (xhrErr) {
+                    // Если сети нет, пробуем загрузить из старого кэша как резерв
+                    const fallbackCache = await getCachedDictionary(mode);
+                    if (fallbackCache && Array.isArray(fallbackCache) && fallbackCache.length > 0) {
+                        dictionaries[mode] = new Set(fallbackCache);
+                        updateDictStatsLabel(mode);
+                        return true;
+                    }
                     elDictStatsInRules.textContent = `Словарь ожидает подключения папки с файлом ${fileName}`;
                     elFolderPermissionText.textContent = `Укажите папку с игрой для загрузки словаря (${fileName}):`;
                     elFolderPermissionBar.classList.add('visible');
@@ -2654,22 +2668,6 @@ window.applyTypoSuggestion = function(word) {
                 }
             }
         }
-
-        elReloadDictBtn.addEventListener('click', async () => {
-            const fileName = gameMode === 'uk' ? 'english.txt' : 'russian.txt';
-            elReloadDictBtn.disabled = true;
-            elDictStatsInRules.textContent = `Перечитываем ${fileName}...`;
-
-            const ok = await initDictionary(gameMode, true);
-            elReloadDictBtn.disabled = false;
-
-            if (ok) {
-                SoundFX.hint();
-            } else {
-                // Если браузер блокирует прямой fetch (file://), сразу открываем выбор папки/файла
-                elGrantFolderBtn.click();
-            }
-        });
 
 
         elGrantFolderBtn.addEventListener('click', async () => {
